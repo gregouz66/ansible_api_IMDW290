@@ -1,0 +1,21 @@
+{
+  "name": "my-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node bin/www",
+    "test": "mocha --timeout 11000 --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "express": "^4.17.1",
+    "mocha": "^9.1.3",
+    "mongoose": "^6.0.13",
+    "nyc": "^15.1.0",
+    "supertest": "^6.1.6"
+  }
+}
