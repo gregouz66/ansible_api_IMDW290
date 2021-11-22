@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const createError = require("http-errors");
 const config = require('./config');
 const env = process.env.NODE_ENV || 'development';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,5 +37,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.send(err);
 });
+
+app.options('*', cors());
 
 module.exports = app;

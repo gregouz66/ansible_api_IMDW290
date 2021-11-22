@@ -106,7 +106,6 @@ describe("api/todos", () => {
             content: "Test test test de Lola"
         });
         await todo.save();
-
         const res = await request(app)
             .put("/api/todos/" + todo._id)
             .send({
@@ -117,10 +116,9 @@ describe("api/todos", () => {
             });
 
       expect(res.status).to.equal(200);
-      expect(res.body).to.have.property("title", "Par Albert");
-      expect(res.body).to.have.property("author", "Albert");
-      expect(res.body).to.have.property("status", false);
-      expect(res.body).to.have.property("content", "Test test test");
+
+      expect(res.body).to.have.property("status", "200");
+      expect(res.body).to.have.property("message", "Updated");
     });
   });
 
