@@ -24,9 +24,9 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoose is disconnected...")
 });
 
-const todosRouter = require("./routes/todo.route");
+const tasksRouter = require("./routes/task.route");
 
-app.use("/api/todos", todosRouter);
+app.use("/api/tasks", tasksRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
