@@ -1,9 +1,9 @@
 module.exports = {
     port: 3000,
     db: {
-      production: "mongodb://user:rami@altran.com:1234/tasksdb",
-      development: "mongodb://localhost:27017/tasksdb",
-      test: "mongodb://localhost:27017/tasksdbtest",
+      production: "mongodb+srv://admin:admin@cluster0.gpzng.mongodb.net/tasksdb?retryWrites=true&w=majority",
+      development: "mongodb+srv://admin:admin@cluster0.gpzng.mongodb.net/tasksdb?retryWrites=true&w=majority",
+      test: "mongodb+srv://admin:admin@cluster0.gpzng.mongodb.net/tasksdbtest?retryWrites=true&w=majority",
     },
     dbParams: {
         useNewUrlParser: true

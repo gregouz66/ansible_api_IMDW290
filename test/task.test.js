@@ -11,27 +11,31 @@ let taskId = '';
 describe("api/tasks", () => {
   before(async () => {
     // before each test delete all tasks table data
-    await Task.deleteMany({});
+    const collections = mongoose.connection.collections;
+
+    await Promise.all(Object.values(collections).map(async (collection) => {
+      await collection.deleteMany({});
+    }));
   });
 
   after(async () => {
-        mongoose.disconnect();
+    mongoose.disconnect();
   });
 
   it("should connect and disconnect to mongodb", async () => {
-      // console.log(mongoose.connection.states);
-      mongoose.disconnect();
-      mongoose.connection.on('disconnected', () => {
-        expect(mongoose.connection.readyState).to.equal(0);
-      });
-      mongoose.connection.on('connected', () => {
-        expect(mongoose.connection.readyState).to.equal(1);
-      });
-      mongoose.connection.on('error', () => {
-        expect(mongoose.connection.readyState).to.equal(99);
-      });
+    // console.log(mongoose.connection.states);
+    mongoose.disconnect();
+    mongoose.connection.on('disconnected', () => {
+      expect(mongoose.connection.readyState).to.equal(0);
+    });
+    mongoose.connection.on('connected', () => {
+      expect(mongoose.connection.readyState).to.equal(1);
+    });
+    mongoose.connection.on('error', () => {
+      expect(mongoose.connection.readyState).to.equal(99);
+    });
 
-      await mongoose.connect(config.db[env], config.dbParams);
+    await mongoose.connect(config.db[env], config.dbParams);
   });
 
   describe("GET /", () => {
@@ -77,9 +81,9 @@ describe("api/tasks", () => {
       const res = await request(app)
         .post("/api/tasks")
         .send({
-            title: "Par Polo",
-            author: "Marco",
-            description: "Une tache pour des tests de Marco POLO"
+          title: "Par Polo",
+          author: "Marco",
+          description: "Une tache pour des tests de Marco POLO"
         });
       const data = res.body;
       expect(res.status).to.equal(200);
@@ -95,20 +99,20 @@ describe("api/tasks", () => {
   });
 
   describe("PUT /:id", () => {
-    it("should update the existing task and return 200", async() => {
-        const task = new Task({
-            title: "Par Lola",
-            author: "Lola",
-            description: "Test test test de Lola"
+    it("should update the existing task and return 200", async () => {
+      const task = new Task({
+        title: "Par Lola",
+        author: "Lola",
+        description: "Test test test de Lola"
+      });
+      // await task.save();
+      const res = await request(app)
+        .put("/api/tasks/" + task._id)
+        .send({
+          title: "Par Albert",
+          author: "Albert",
+          description: "Test test test"
         });
-        // await task.save();
-        const res = await request(app)
-            .put("/api/tasks/" + task._id)
-            .send({
-                title: "Par Albert",
-                author: "Albert",
-                description: "Test test test"
-            });
 
       expect(res.status).to.equal(200);
 
