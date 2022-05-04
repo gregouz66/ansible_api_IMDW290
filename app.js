@@ -28,6 +28,12 @@ const tasksRouter = require("./routes/task.route");
 
 app.use("/api/tasks", tasksRouter);
 
+app.get('/api/status', (req,res) => {
+  res.status(200).json({
+    success: true
+  });
+});
+
 app.use((req, res, next) => {
   next(createError(404));
 });
